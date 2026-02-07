@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenstudy - โฟกัสและทดสอบ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌿 Greenstudy</h1>
+            <p>ตั้งเวลาอ่าน แล้วมาวัดความรู้กัน</p>
+        </header>
+
+        <div class="modes">
+            <button onclick="setMode(0.1)" class="mode-btn">ทดสอบเร็ว (6 วิ)</button> <button onclick="setMode(25)" class="mode-btn active">โฟกัส (25 น.)</button>
+            <button onclick="setMode(5)" class="mode-btn">พักสั้น (5 น.)</button>
+        </div>
+
+        <div class="timer-display" id="time-display">25:00</div>
+
+        <input type="text" id="task-input" placeholder="วิชาที่จะอ่าน? (เช่น คณิต, อังกฤษ, วิทย์)">
+
+        <div class="controls">
+            <button onclick="toggleTimer()" id="main-btn">เริ่มจับเวลา</button>
+            <button onclick="resetTimer()" class="reset-btn">รีเซ็ต</button>
+        </div>
+        
+        <div class="footer">
+            <button onclick="requestNotification()" class="notify-btn">🔔 เปิดแจ้งเตือน</button>
+        </div>
+    </div>
+
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="quiz-title">📝 ทดสอบความจำ!</h2>
+            <p id="quiz-question">คำถามจะปรากฏที่นี่...</p>
+            
+            <div id="quiz-options">
+                </div>
+
+            <textarea id="quiz-answer-text" placeholder="พิมพ์สรุปสั้นๆ ที่นี่..."></textarea>
+            
+            <button onclick="checkAnswer()" id="submit-quiz-btn">ส่งคำตอบ</button>
+            <p id="quiz-result"></p>
+            <button onclick="closeQuiz()" class="close-btn">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
