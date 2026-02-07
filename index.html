@@ -3,49 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenstudy - โฟกัสและทดสอบ</title>
+    <title>Greenstudy - ระบบจองและเริ่มเรียน</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🌿 Greenstudy</h1>
-            <p>ตั้งเวลาอ่าน แล้วมาวัดความรู้กัน</p>
-        </header>
+        <h1>🌿 Greenstudy</h1>
 
-        <div class="modes">
-            <button onclick="setMode(0.1)" class="mode-btn">ทดสอบเร็ว (6 วิ)</button> <button onclick="setMode(25)" class="mode-btn active">โฟกัส (25 น.)</button>
-            <button onclick="setMode(5)" class="mode-btn">พักสั้น (5 น.)</button>
+        <div id="setup-page">
+            <div class="clock-display">
+                <p>เวลาปัจจุบัน</p>
+                <h2 id="live-clock">00:00:00</h2>
+            </div>
+            <div class="setup-box">
+                <p>🔔 จองเวลาเริ่มเรียนล่วงหน้า</p>
+                <div class="input-group">
+                    <input type="time" id="study-time-input">
+                    <button onclick="addSchedule()" id="add-btn">จองเวลา</button>
+                </div>
+            </div>
+            <div class="schedule-list">
+                <p>📌 คิวการเรียนของคุณ:</p>
+                <ul id="list-items"></ul>
+            </div>
         </div>
 
-        <div class="timer-display" id="time-display">25:00</div>
+        <div id="study-page" style="display:none;">
+            <div class="status-badge">📚 ได้เวลาเรียนแล้ว!</div>
+            
+            <p>1. เลือกวิชาที่จะติว:</p>
+            <div class="selector-group">
+                <button onclick="selectSubject('คณิต')" class="sub-btn" id="btn-math">คณิตศาสตร์</button>
+                <button onclick="selectSubject('อังกฤษ')" class="sub-btn" id="btn-eng">ภาษาอังกฤษ</button>
+                <button onclick="selectSubject('วิทย์')" class="sub-btn" id="btn-sci">วิทยาศาสตร์</button>
+            </div>
 
-        <input type="text" id="task-input" placeholder="วิชาที่จะอ่าน? (เช่น คณิต, อังกฤษ, วิทย์)">
+            <p>2. เลือกเวลาที่จะอ่าน:</p>
+            <div class="selector-group">
+                <button onclick="setTime(10)" class="time-btn">10 นาที</button>
+                <button onclick="setTime(20)" class="time-btn">20 นาที</button>
+                <button onclick="setTime(30)" class="time-btn">30 นาที</button>
+            </div>
 
-        <div class="controls">
-            <button onclick="toggleTimer()" id="main-btn">เริ่มจับเวลา</button>
-            <button onclick="resetTimer()" class="reset-btn">รีเซ็ต</button>
+            <div class="timer-display" id="time-display">00:00</div>
+            <button onclick="startCountdown()" id="main-btn">เริ่มจับเวลาเลย!</button>
+            <button onclick="skipToQuiz()" id="skip-btn" style="display:none;">ข้ามไปทำข้อสอบ ⏩</button>
         </div>
-        
-        <div class="footer">
-            <button onclick="requestNotification()" class="notify-btn">🔔 เปิดแจ้งเตือน</button>
-        </div>
+
+        <button onclick="requestNotif()" class="btn-notif">🔔 เปิดระบบแจ้งเตือน</button>
     </div>
 
     <div id="quiz-modal" class="modal">
         <div class="modal-content">
-            <h2 id="quiz-title">📝 ทดสอบความจำ!</h2>
-            <p id="quiz-question">คำถามจะปรากฏที่นี่...</p>
-            
-            <div id="quiz-options">
-                </div>
-
-            <textarea id="quiz-answer-text" placeholder="พิมพ์สรุปสั้นๆ ที่นี่..."></textarea>
-            
-            <button onclick="checkAnswer()" id="submit-quiz-btn">ส่งคำตอบ</button>
+            <h2>📝 แบบทดสอบท้ายบท</h2>
+            <p id="quiz-question"></p>
+            <div id="quiz-options"></div>
             <p id="quiz-result"></p>
-            <button onclick="closeQuiz()" class="close-btn">ปิดหน้าต่าง</button>
+            <button onclick="closeQuiz()" class="close-link">กลับหน้าตั้งเวลา</button>
         </div>
     </div>
 
