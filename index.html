@@ -9,59 +9,94 @@
 </head>
 <body>
     <div class="container">
-        <h1>🌿 Greenstudy</h1>
-
-        <div id="setup-page">
-            <div class="clock-display">
-                <p>เวลาปัจจุบัน</p>
-                <h2 id="live-clock">00:00:00</h2>
-            </div>
-            <div class="setup-box">
-                <p>🔔 จองเวลาเริ่มเรียนล่วงหน้า</p>
-                <div class="input-group">
-                    <input type="time" id="study-time-input">
-                    <button onclick="addSchedule()" id="add-btn">จองเวลา</button>
+        <div id="auth-section">
+            <div id="login-form">
+                <h1>Log In</h1>
+                <div class="login-card">
+                    <input type="text" id="login-email" placeholder="Email / Username" class="login-input">
+                    <input type="password" id="login-pass" placeholder="Password" class="login-input">
+                    <button onclick="handleSignIn()" id="main-btn">เข้าสู่ระบบ</button>
+                    <p id="toggle-text-login" style="margin-top:15px; font-size: 0.8rem;">Don't have an account? <a href="#" onclick="toggleAuth(true)" style="color: #2e7d32; font-weight: bold;">Sign Up</a></p>
                 </div>
             </div>
-            <div class="schedule-list">
-                <p>📌 คิวการเรียนของคุณ:</p>
-                <ul id="list-items"></ul>
+
+            <div id="signup-form" style="display: none;">
+                <h1>Sign Up</h1>
+                <div class="login-card">
+                    <input type="text" id="signup-email" placeholder="New Email / Username" class="login-input">
+                    <input type="password" id="signup-pass" placeholder="Create Password" class="login-input">
+                    <button onclick="handleSignUp()" id="main-btn">Sign Up Account</button>
+                    <p id="toggle-text-signup" style="margin-top:15px; font-size: 0.8rem;">Already have an account? <a href="#" onclick="toggleAuth(false)" style="color: #2e7d32; font-weight: bold;">Log In</a></p>
+                </div>
             </div>
         </div>
 
-        <div id="study-page" style="display:none;">
-            <div class="status-badge">📚 ได้เวลาเรียนแล้ว!</div>
+        <div id="admin-dashboard" style="display:none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: #1a237e; margin:0;">📊 Admin Panel</h2>
+                <button onclick="handleSignOut()" style="color:red; background:none; border:none; cursor:pointer;">Sign Out</button>
+            </div>
+            <div id="admin-stats" style="max-height: 400px; overflow-y: auto; background: white; padding: 10px; border-radius: 10px;"></div>
+            <button onclick="clearLogs()" style="margin-top:15px; width:100%; padding:10px; background:#eee; border:none; border-radius:10px; cursor:pointer;">ล้างประวัติกิจกรรม</button>
+        </div>
+
+        <div id="main-content" style="display:none;">
+            <div style="text-align: right; margin-bottom: 10px;">
+                <span id="user-display" style="font-size: 0.8rem; color: #666;"></span>
+                <button onclick="handleSignOut()" style="background:none; border:none; color:red; cursor:pointer; text-decoration:underline; font-size: 0.8rem;">Sign Out</button>
+            </div>
             
-            <p>1. เลือกวิชาที่จะติว:</p>
-            <div class="selector-group">
-                <button onclick="selectSubject('คณิต')" class="sub-btn" id="btn-math">คณิตศาสตร์</button>
-                <button onclick="selectSubject('อังกฤษ')" class="sub-btn" id="btn-eng">ภาษาอังกฤษ</button>
-                <button onclick="selectSubject('วิทย์')" class="sub-btn" id="btn-sci">วิทยาศาสตร์</button>
+            <h1>🌿 Greenstudy</h1>
+
+            <div id="setup-page">
+                <div class="clock-display">
+                    <p id="current-time-label">เวลาปัจจุบัน</p>
+                    <h2 id="live-clock">00:00:00</h2>
+                </div>
+                <div class="setup-box">
+                    <p id="reserve-label">🔔 จองเวลาเริ่มเรียน</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <input type="time" id="study-time-input" class="login-input" style="width: auto; margin-bottom: 0;">
+                        <button onclick="addSchedule()" id="reserve-btn" style="width: auto; padding: 0 20px; background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%); color: white; border: none; border-radius: 50px; cursor: pointer;">จอง</button>
+                    </div>
+                </div>
+                <div class="schedule-list">
+                    <p id="queue-label" style="margin-top: 20px;">📌 คิวการเรียนของคุณ:</p>
+                    <ul id="list-items" style="padding: 0;"></ul>
+                </div>
             </div>
 
-            <p>2. เลือกเวลาที่จะอ่าน:</p>
-            <div class="selector-group">
-                <button onclick="setTime(10)" class="time-btn">10 นาที</button>
-                <button onclick="setTime(20)" class="time-btn">20 นาที</button>
-                <button onclick="setTime(30)" class="time-btn">30 นาที</button>
+            <div id="study-page" style="display:none;">
+                <div id="study-status" class="status-badge" style="background:#e8f5e9; color:#2e7d32; padding:5px; border-radius:10px; margin-bottom:10px;">📚 ได้เวลาเรียนแล้ว!</div>
+                <p id="sub-label">1. เลือกวิชาที่จะติว:</p>
+                <div class="selector-group">
+                    <button onclick="selectSubject('ไทย')" class="sub-btn" id="btn-thai">ภาษาไทย</button>
+                    <button onclick="selectSubject('วิทย์')" class="sub-btn" id="btn-sci">วิทยาศาสตร์</button>
+                    <button onclick="selectSubject('สังคม')" class="sub-btn" id="btn-soc">สังคมศึกษา</button>
+                </div>
+                <p id="time-label">2. เลือกเวลาที่จะอ่าน:</p>
+                <div class="selector-group">
+                    <button onclick="setTime(10)" class="time-btn">10 นาที</button>
+                    <button onclick="setTime(20)" class="time-btn">20 นาที</button>
+                    <button onclick="setTime(30)" class="time-btn">30 นาที</button>
+                </div>
+                <div class="timer-display" id="time-display">00:00</div>
+                <button onclick="startCountdown()" id="main-btn-start">เริ่มจับเวลาเลย!</button>
+                <button onclick="skipToQuiz()" id="skip-btn" style="display:none; width:100%; margin-top:10px; padding:10px; border-radius:50px; border:1px solid #ddd; cursor:pointer;">ข้ามขั้นตอนเรียน ⏩</button>
             </div>
-
-            <div class="timer-display" id="time-display">00:00</div>
-            <button onclick="startCountdown()" id="main-btn">เริ่มจับเวลาเลย!</button>
-            <button onclick="skipToQuiz()" id="skip-btn" style="display:none;">ข้ามไปทำข้อสอบ ⏩</button>
+            
+            <button id="notif-btn" onclick="requestNotif()" style="margin-top:20px; border:none; background:none; color:#2e7d32; cursor:pointer; font-weight:bold; font-size: 0.85rem;">
+                🔔 เปิดระบบแจ้งเตือนข้างจอ/มือถือ
+            </button>
         </div>
-
-        <button onclick="requestNotif()" class="btn-notif">🔔 เปิดระบบแจ้งเตือน</button>
     </div>
 
-    <div id="quiz-modal" class="modal">
-        <div class="modal-content">
-            <h2>📝 แบบทดสอบท้ายบท</h2>
-            <p id="quiz-question"></p>
-            <div id="quiz-options"></div>
-            <p id="quiz-result"></p>
-            <button onclick="closeQuiz()" class="close-link">กลับหน้าตั้งเวลา</button>
-        </div>
+    <div class="lang-selector">
+        <button class="lang-btn" onclick="changeLang('th')" title="ภาษาไทย">🇹🇭</button>
+        <button class="lang-btn" onclick="changeLang('en')" title="English">🇺🇸</button>
+        <button class="lang-btn" onclick="changeLang('cn')" title="中文">🇨🇳</button>
+        <button class="lang-btn" onclick="changeLang('jp')" title="日本語">🇯🇵</button>
+        <button class="lang-btn" onclick="changeLang('ru')" title="Русский">🇷🇺</button>
     </div>
 
     <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
