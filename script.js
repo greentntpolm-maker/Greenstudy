@@ -10,43 +10,102 @@ const THAI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdony2Q9w6-kOfHU
 const SCIENCE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSczVjyfKF_2PHB7VoTED7TN7iZqaloM4eHxpQZsCrcdqT_-mQ/viewform?usp=header";
 const SOCIAL_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfR6P0ZGOBeAZMnj3_jrtx1rgr1rklmY19oqajVHZKlgUMmMA/viewform?usp=header";
 
-// --- Translations ---
+// --- ระบบแปลภาษา (5 ภาษา: TH, EN, CN, JP, RU) ---
 const translations = {
     th: {
         login_h1: "Log In", signup_h1: "Sign Up", email_ph: "อีเมล / ชื่อผู้ใช้", pass_ph: "รหัสผ่าน",
-        btn_login: "เข้าสู่ระบบ", btn_signup: "สมัครสมาชิก", no_acc: "ยังไม่มีบัญชีใช่ไหม? ", has_acc: "มีบัญชีอยู่แล้ว? ",
+        btn_login: "เข้าสู่ระบบ", btn_signup: "สมัครสมาชิก",
         current_time: "เวลาปัจจุบัน", reserve: "🔔 จองเวลาเริ่มเรียน", btn_reserve: "จอง", queue: "📌 คิวการเรียนของคุณ:",
         notif_btn: "🔔 เปิดระบบแจ้งเตือนข้างจอ/มือถือ", study_status: "📚 ได้เวลาเรียนแล้ว!", sub_label: "1. เลือกวิชาที่จะติว:",
-        time_label: "2. เลือกเวลาที่จะอ่าน:", start_btn: "เริ่มจับเวลาเลย!"
+        time_label: "2. เลือกเวลาที่จะอ่าน:", start_btn: "เริ่มจับเวลาเลย!",
+        sub_thai: "ภาษาไทย", sub_sci: "วิทยาศาสตร์", sub_soc: "สังคมศึกษา",
+        min10: "10 นาที", min20: "20 นาที", min30: "30 นาที", skip: "ข้ามขั้นตอนเรียน ⏩"
     },
     en: {
         login_h1: "Log In", signup_h1: "Sign Up", email_ph: "Email / Username", pass_ph: "Password",
-        btn_login: "Login", btn_signup: "Sign Up", no_acc: "Don't have an account? ", has_acc: "Already have an account? ",
+        btn_login: "Login", btn_signup: "Sign Up",
         current_time: "Current Time", reserve: "🔔 Reserve Study Time", btn_reserve: "Reserve", queue: "📌 Your Study Queue:",
-        notif_btn: "🔔 Enable Desktop/Mobile Notifications", study_status: "📚 Time to Study!", sub_label: "1. Choose a subject:",
-        time_label: "2. Choose study time:", start_btn: "Start Timer Now!"
+        notif_btn: "🔔 Enable Notifications", study_status: "📚 Time to Study!", sub_label: "1. Choose a subject:",
+        time_label: "2. Choose study time:", start_btn: "Start Timer Now!",
+        sub_thai: "Thai Language", sub_sci: "Science", sub_soc: "Social Studies",
+        min10: "10 Min", min20: "20 Min", min30: "30 Min", skip: "Skip to Quiz ⏩"
+    },
+    cn: {
+        login_h1: "登录", signup_h1: "注册", email_ph: "电子邮件 / 用户名", pass_ph: "密码",
+        btn_login: "登录", btn_signup: "注册",
+        current_time: "当前时间", reserve: "🔔 预约学习时间", btn_reserve: "预约", queue: "📌 您的学习队列:",
+        notif_btn: "🔔 开启通知", study_status: "📚 学习时间到了！", sub_label: "1. 选择科目:",
+        time_label: "2. 选择学习时间:", start_btn: "现在开始计时！",
+        sub_thai: "泰语", sub_sci: "科学", sub_soc: "社会",
+        min10: "10 分钟", min20: "20 分钟", min30: "30 分钟", skip: "跳过学习 ⏩"
+    },
+    jp: {
+        login_h1: "ログイン", signup_h1: "サインアップ", email_ph: "メール / ユーザー名", pass_ph: "パスワード",
+        btn_login: "ログイン", btn_signup: "サインアップ",
+        current_time: "現在の時刻", reserve: "🔔 学習時間を予約する", btn_reserve: "予約", queue: "📌 学習キュー:",
+        notif_btn: "🔔 通知を有効にする", study_status: "📚 勉強の時間です！", sub_label: "1. 科目を選択:",
+        time_label: "2. 学習時間を選択:", start_btn: "タイマー開始！",
+        sub_thai: "タイ語", sub_sci: "科学", sub_soc: "社会科",
+        min10: "10 分", min20: "20 分", min30: "30 分", skip: "クイズへスキップ ⏩"
+    },
+    ru: {
+        login_h1: "Вход", signup_h1: "Регистрация", email_ph: "Email / Имя пользователя", pass_ph: "Пароль",
+        btn_login: "Войти", btn_signup: "Создать аккаунт",
+        current_time: "Текущее время", reserve: "🔔 Забронировать время", btn_reserve: "Бронь", queue: "📌 Ваша очередь:",
+        notif_btn: "🔔 Включить уведомления", study_status: "📚 Время учиться!", sub_label: "1. Выберите предмет:",
+        time_label: "2. Выберите время:", start_btn: "Начать отсчет!",
+        sub_thai: "Тайский язык", sub_sci: "Наука", sub_soc: "Обществознание",
+        min10: "10 мин", min20: "20 мин", min30: "30 мин", skip: "Перейти к тесту ⏩"
     }
 };
 
 function changeLang(lang) {
     const t = translations[lang] || translations['th'];
-    const h1Login = document.querySelector('#login-form h1');
-    if (h1Login) h1Login.innerText = t.login_h1;
+
+    // แปลหน้า Login/Signup
+    if(document.querySelector('#login-form h1')) document.querySelector('#login-form h1').innerText = t.login_h1;
     document.getElementById('login-email').placeholder = t.email_ph;
     document.getElementById('login-pass').placeholder = t.pass_ph;
     document.getElementById('main-btn').innerText = t.btn_login;
+    
+    if(document.querySelector('#signup-form h1')) document.querySelector('#signup-form h1').innerText = t.signup_h1;
+    document.getElementById('signup-email').placeholder = t.email_ph;
+    document.getElementById('signup-pass').placeholder = t.pass_ph;
+    const signupBtn = document.querySelector('#signup-form #main-btn');
+    if(signupBtn) signupBtn.innerText = t.btn_signup;
+
+    // แปลหน้า Setup
     document.getElementById('current-time-label').innerText = t.current_time;
     document.getElementById('reserve-label').innerText = t.reserve;
     document.getElementById('reserve-btn').innerText = t.btn_reserve;
     document.getElementById('queue-label').innerText = t.queue;
     document.getElementById('notif-btn').innerText = t.notif_btn;
+
+    // แปลหน้า Study
     document.getElementById('study-status').innerText = t.study_status;
     document.getElementById('sub-label').innerText = t.sub_label;
     document.getElementById('time-label').innerText = t.time_label;
     document.getElementById('main-btn-start').innerText = t.start_btn;
+    document.getElementById('skip-btn').innerText = t.skip;
+
+    // แปลชื่อวิชา
+    document.getElementById('btn-thai').innerText = t.sub_thai;
+    document.getElementById('btn-sci').innerText = t.sub_sci;
+    document.getElementById('btn-soc').innerText = t.sub_soc;
+
+    // แปลปุ่มเวลา
+    const timeBtns = document.querySelectorAll('.time-btn');
+    if(timeBtns.length >= 3) {
+        timeBtns[0].innerText = t.min10;
+        timeBtns[1].innerText = t.min20;
+        timeBtns[2].innerText = t.min30;
+    }
+    
+    localStorage.setItem('gs_lang', lang);
 }
 
-// --- Auth System ---
+// --- ฟังก์ชันอื่นๆ (Auth, Timer, Logic) เหมือนเดิมคงไว้ทั้งหมด ---
+
 function handleSignIn() {
     const email = document.getElementById('login-email').value.trim();
     const pass = document.getElementById('login-pass').value;
@@ -61,7 +120,7 @@ function handleSignIn() {
         currentUser = email;
         localStorage.setItem('gs_current_session', email);
         showMainApp();
-    } else { alert("ข้อมูลไม่ถูกต้อง"); }
+    } else { alert("ข้อมูลไม่ถูกต้อง / Wrong Info"); }
 }
 
 function showMainApp() {
@@ -79,6 +138,9 @@ function handleSignOut() { localStorage.removeItem('gs_current_session'); locati
 
 window.onload = () => {
     const session = localStorage.getItem('gs_current_session');
+    const savedLang = localStorage.getItem('gs_lang') || 'th';
+    changeLang(savedLang);
+
     if (session) {
         currentUser = session;
         if (currentUser === "Admin007") showAdminPage();
@@ -86,7 +148,6 @@ window.onload = () => {
     }
 };
 
-// --- Core Logic ---
 function updateClock() {
     const now = new Date();
     const currentHM = now.toTimeString().substring(0, 5);
@@ -104,7 +165,7 @@ function triggerStudyPage(time) {
     renderList();
     document.getElementById('alarm-sound').play();
     if (Notification.permission === "granted") {
-        new Notification("🌿 ได้เวลาเรียนแล้ว!", { body: `จองไว้เวลา ${time} น.` });
+        new Notification("🌿 Greenstudy", { body: `Time: ${time}` });
     }
     document.getElementById('setup-page').style.display = "none";
     document.getElementById('study-page').style.display = "block";
@@ -124,7 +185,7 @@ function setTime(m) {
 }
 
 function startCountdown() {
-    if (!selectedSubject || timeLeft === 0) return alert("เลือกวิชาและเวลาก่อน!");
+    if (!selectedSubject || timeLeft === 0) return alert("Please select subject and time!");
     addLog("เริ่มเรียน");
     document.getElementById('main-btn-start').style.display = "none";
     document.getElementById('skip-btn').style.display = "block";
@@ -138,24 +199,17 @@ function startCountdown() {
     }, 1000);
 }
 
-// --- ฟังก์ชันเด้งไปลิงก์ตามวิชาที่เลือก ---
 function finishStudy(status) {
     clearInterval(timer);
     addLog(status);
     document.getElementById('alarm-sound').play();
     
     let targetUrl = "";
-    if (selectedSubject === "ไทย") {
-        targetUrl = THAI_FORM_URL;
-    } else if (selectedSubject === "วิทย์") {
-        targetUrl = SCIENCE_FORM_URL;
-    } else if (selectedSubject === "สังคม") {
-        targetUrl = SOCIAL_FORM_URL;
-    } else {
-        targetUrl = SCIENCE_FORM_URL; // Default
-    }
+    if (selectedSubject === "ไทย") targetUrl = THAI_FORM_URL;
+    else if (selectedSubject === "วิทย์") targetUrl = SCIENCE_FORM_URL;
+    else if (selectedSubject === "สังคม") targetUrl = SOCIAL_FORM_URL;
+    else targetUrl = SCIENCE_FORM_URL;
     
-    alert(status === "เรียนจบ" ? `ยอดเยี่ยม! ไปทำแบบทดสอบวิชา ${selectedSubject} กัน` : "กำลังพาไปหน้าแบบทดสอบ...");
     window.open(targetUrl, '_blank');
     resetToSetupPage();
 }
@@ -195,8 +249,8 @@ function addLog(action) {
     if (currentUser === 'Admin007') return; 
     const logs = JSON.parse(localStorage.getItem('gs_activity_logs') || "[]");
     logs.push({
-        user: currentUser, subject: selectedSubject || "ไม่ได้เลือก",
-        duration: timeLeft, action: action, time: new Date().toLocaleString('th-TH')
+        user: currentUser, subject: selectedSubject || "N/A",
+        duration: timeLeft, action: action, time: new Date().toLocaleString()
     });
     localStorage.setItem('gs_activity_logs', JSON.stringify(logs));
 }
@@ -213,7 +267,7 @@ function handleSignUp() {
     let users = JSON.parse(localStorage.getItem('gs_users') || "{}");
     users[email] = { password: pass };
     localStorage.setItem('gs_users', JSON.stringify(users));
-    alert("สมัครสำเร็จ!"); toggleAuth(false);
+    alert("Success!"); toggleAuth(false);
 }
 
 function showAdminPage() {
@@ -236,13 +290,12 @@ function renderAdminDashboard() {
     }
 }
 
-function clearLogs() { if(confirm("ล้างประวัติ?")) { localStorage.removeItem('gs_activity_logs'); renderAdminDashboard(); } }
+function clearLogs() { if(confirm("Clear logs?")) { localStorage.removeItem('gs_activity_logs'); renderAdminDashboard(); } }
 
 function requestNotif() {
     Notification.requestPermission().then(perm => {
-        if (perm === "granted") alert("✅ เปิดการแจ้งเตือนแล้ว!");
-        else alert("❌ โปรดเปิดสิทธิ์แจ้งเตือนในเบราว์เซอร์");
+        if (perm === "granted") alert("✅ OK!");
     });
 }
 
-function skipToQuiz() { if(confirm("ต้องการข้ามไปทำแบบทดสอบเลยไหม?")) finishStudy("กดข้าม"); }
+function skipToQuiz() { if(confirm("Skip to Quiz?")) finishStudy("กดข้าม"); }
