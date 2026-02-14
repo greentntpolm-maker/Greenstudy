@@ -73,13 +73,14 @@
                     <button onclick="selectSubject('ไทย')" class="sub-btn" id="btn-thai">ภาษาไทย</button>
                     <button onclick="selectSubject('วิทย์')" class="sub-btn" id="btn-sci">วิทยาศาสตร์</button>
                     <button onclick="selectSubject('สังคม')" class="sub-btn" id="btn-soc">สังคมศึกษา</button>
+                    <button onclick="selectSubject('คณิต')" class="sub-btn" id="btn-math">คณิตศาสตร์</button>
                 </div>
-                <p id="time-label">2. เลือกเวลาที่จะอ่าน:</p>
-                <div class="selector-group">
-                    <button onclick="setTime(10)" class="time-btn">10 นาที</button>
-                    <button onclick="setTime(20)" class="time-btn">20 นาที</button>
-                    <button onclick="setTime(30)" class="time-btn">30 นาที</button>
+                
+                <p id="time-label">2. ระบุเวลาที่จะอ่าน (นาที):</p>
+                <div style="margin-bottom: 15px;">
+                    <input type="number" id="custom-time" placeholder="ระบุจำนวนนาที" class="login-input" style="text-align: center; font-size: 1.2rem;" min="1">
                 </div>
+
                 <div class="timer-display" id="time-display">00:00</div>
                 <button onclick="startCountdown()" id="main-btn-start">เริ่มจับเวลาเลย!</button>
                 <button onclick="skipToQuiz()" id="skip-btn" style="display:none; width:100%; margin-top:10px; padding:10px; border-radius:50px; border:1px solid #ddd; cursor:pointer;">ข้ามขั้นตอนเรียน ⏩</button>

@@ -9,53 +9,54 @@ let lastTriggeredTime = "";
 const THAI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdony2Q9w6-kOfHU3uIaP2a1y7inOti9XXHBqFuJcTS_uPW7w/viewform?usp=header";
 const SCIENCE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSczVjyfKF_2PHB7VoTED7TN7iZqaloM4eHxpQZsCrcdqT_-mQ/viewform?usp=header";
 const SOCIAL_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfR6P0ZGOBeAZMnj3_jrtx1rgr1rklmY19oqajVHZKlgUMmMA/viewform?usp=header";
+const MATH_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf6u_Y5GwIEUTzIRtfqo7ZSSs3nDrHc37hyyOSGePJqJy2p4g/viewform?usp=header";
 
-// --- ระบบแปลภาษา (5 ภาษา: TH, EN, CN, JP, RU) ---
+// --- ระบบแปลภาษา ---
 const translations = {
     th: {
         login_h1: "Log In", signup_h1: "Sign Up", email_ph: "อีเมล / ชื่อผู้ใช้", pass_ph: "รหัสผ่าน",
         btn_login: "เข้าสู่ระบบ", btn_signup: "สมัครสมาชิก",
         current_time: "เวลาปัจจุบัน", reserve: "🔔 จองเวลาเริ่มเรียน", btn_reserve: "จอง", queue: "📌 คิวการเรียนของคุณ:",
         notif_btn: "🔔 เปิดระบบแจ้งเตือนข้างจอ/มือถือ", study_status: "📚 ได้เวลาเรียนแล้ว!", sub_label: "1. เลือกวิชาที่จะติว:",
-        time_label: "2. เลือกเวลาที่จะอ่าน:", start_btn: "เริ่มจับเวลาเลย!",
-        sub_thai: "ภาษาไทย", sub_sci: "วิทยาศาสตร์", sub_soc: "สังคมศึกษา",
-        min10: "10 นาที", min20: "20 นาที", min30: "30 นาที", skip: "ข้ามขั้นตอนเรียน ⏩"
+        time_label: "2. ระบุเวลาที่จะอ่าน (นาที):", start_btn: "เริ่มจับเวลาเลย!",
+        sub_thai: "ภาษาไทย", sub_sci: "วิทยาศาสตร์", sub_soc: "สังคมศึกษา", sub_math: "คณิตศาสตร์",
+        time_ph: "ระบุจำนวนนาที", skip: "ข้ามขั้นตอนเรียน ⏩"
     },
     en: {
         login_h1: "Log In", signup_h1: "Sign Up", email_ph: "Email / Username", pass_ph: "Password",
         btn_login: "Login", btn_signup: "Sign Up",
         current_time: "Current Time", reserve: "🔔 Reserve Study Time", btn_reserve: "Reserve", queue: "📌 Your Study Queue:",
         notif_btn: "🔔 Enable Notifications", study_status: "📚 Time to Study!", sub_label: "1. Choose a subject:",
-        time_label: "2. Choose study time:", start_btn: "Start Timer Now!",
-        sub_thai: "Thai Language", sub_sci: "Science", sub_soc: "Social Studies",
-        min10: "10 Min", min20: "20 Min", min30: "30 Min", skip: "Skip to Quiz ⏩"
+        time_label: "2. Enter study time (Minutes):", start_btn: "Start Timer Now!",
+        sub_thai: "Thai Language", sub_sci: "Science", sub_soc: "Social Studies", sub_math: "Mathematics",
+        time_ph: "Enter minutes", skip: "Skip to Quiz ⏩"
     },
     cn: {
         login_h1: "登录", signup_h1: "注册", email_ph: "电子邮件 / 用户名", pass_ph: "密码",
         btn_login: "登录", btn_signup: "注册",
         current_time: "当前时间", reserve: "🔔 预约学习时间", btn_reserve: "预约", queue: "📌 您的学习队列:",
         notif_btn: "🔔 开启通知", study_status: "📚 学习时间到了！", sub_label: "1. 选择科目:",
-        time_label: "2. 选择学习时间:", start_btn: "现在开始计时！",
-        sub_thai: "泰语", sub_sci: "科学", sub_soc: "社会",
-        min10: "10 分钟", min20: "20 分钟", min30: "30 分钟", skip: "跳过学习 ⏩"
+        time_label: "2. 输入学习时间 (分钟):", start_btn: "现在开始计时！",
+        sub_thai: "泰语", sub_sci: "科学", sub_soc: "社会", sub_math: "数学",
+        time_ph: "输入分钟", skip: "跳过学习 ⏩"
     },
     jp: {
         login_h1: "ログイン", signup_h1: "サインアップ", email_ph: "メール / ユーザー名", pass_ph: "パスワード",
         btn_login: "ログイン", btn_signup: "サインアップ",
         current_time: "現在の時刻", reserve: "🔔 学習時間を予約する", btn_reserve: "予約", queue: "📌 学習キュー:",
         notif_btn: "🔔 通知を有効にする", study_status: "📚 勉強の時間です！", sub_label: "1. 科目を選択:",
-        time_label: "2. 学習時間を選択:", start_btn: "タイマー開始！",
-        sub_thai: "タイ語", sub_sci: "科学", sub_soc: "社会科",
-        min10: "10 分", min20: "20 分", min30: "30 分", skip: "クイズへスキップ ⏩"
+        time_label: "2. 学習時間を入力 (分):", start_btn: "タイマー開始！",
+        sub_thai: "タイ語", sub_sci: "科学", sub_soc: "社会科", sub_math: "数学",
+        time_ph: "分を入力", skip: "クイズへスキップ ⏩"
     },
     ru: {
         login_h1: "Вход", signup_h1: "Регистрация", email_ph: "Email / Имя пользователя", pass_ph: "Пароль",
         btn_login: "Войти", btn_signup: "Создать аккаунт",
         current_time: "Текущее время", reserve: "🔔 Забронировать время", btn_reserve: "Бронь", queue: "📌 Ваша очередь:",
         notif_btn: "🔔 Включить уведомления", study_status: "📚 Время учиться!", sub_label: "1. Выберите предмет:",
-        time_label: "2. Выберите время:", start_btn: "Начать отсчет!",
-        sub_thai: "Тайский язык", sub_sci: "Наука", sub_soc: "Обществознание",
-        min10: "10 мин", min20: "20 мин", min30: "30 мин", skip: "Перейти к тесту ⏩"
+        time_label: "2. Введите время (мин):", start_btn: "Начать отсчет!",
+        sub_thai: "Тайский язык", sub_sci: "Наука", sub_soc: "Обществознание", sub_math: "Математика",
+        time_ph: "Введите минуты", skip: "Перейти к тесту ⏩"
     }
 };
 
@@ -87,24 +88,19 @@ function changeLang(lang) {
     document.getElementById('time-label').innerText = t.time_label;
     document.getElementById('main-btn-start').innerText = t.start_btn;
     document.getElementById('skip-btn').innerText = t.skip;
+    
+    // แปล Placeholder ช่องกรอกเวลา (New)
+    document.getElementById('custom-time').placeholder = t.time_ph;
 
     // แปลชื่อวิชา
     document.getElementById('btn-thai').innerText = t.sub_thai;
     document.getElementById('btn-sci').innerText = t.sub_sci;
     document.getElementById('btn-soc').innerText = t.sub_soc;
-
-    // แปลปุ่มเวลา
-    const timeBtns = document.querySelectorAll('.time-btn');
-    if(timeBtns.length >= 3) {
-        timeBtns[0].innerText = t.min10;
-        timeBtns[1].innerText = t.min20;
-        timeBtns[2].innerText = t.min30;
-    }
+    const btnMath = document.getElementById('btn-math');
+    if (btnMath) btnMath.innerText = t.sub_math;
     
     localStorage.setItem('gs_lang', lang);
 }
-
-// --- ฟังก์ชันอื่นๆ (Auth, Timer, Logic) เหมือนเดิมคงไว้ทั้งหมด ---
 
 function handleSignIn() {
     const email = document.getElementById('login-email').value.trim();
@@ -174,21 +170,29 @@ function triggerStudyPage(time) {
 function selectSubject(s) {
     selectedSubject = s;
     document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('selected'));
-    const ids = { 'ไทย': 'btn-thai', 'วิทย์': 'btn-sci', 'สังคม': 'btn-soc' };
+    const ids = { 'ไทย': 'btn-thai', 'วิทย์': 'btn-sci', 'สังคม': 'btn-soc', 'คณิต': 'btn-math' };
     if (ids[s]) document.getElementById(ids[s]).classList.add('selected');
 }
 
-function setTime(m) {
-    timeLeft = m * 60;
-    document.getElementById('time-display').innerText = `${m}:00`;
-    document.querySelectorAll('.time-btn').forEach(b => b.classList.toggle('selected', b.innerText.includes(m)));
-}
+// ลบฟังก์ชัน setTime ออก เพราะเปลี่ยนมาใช้ input แทน
 
 function startCountdown() {
-    if (!selectedSubject || timeLeft === 0) return alert("Please select subject and time!");
+    // อ่านค่าจาก input แทน
+    const timeInput = document.getElementById('custom-time').value;
+    
+    if (!selectedSubject || !timeInput || timeInput <= 0) return alert("กรุณาเลือกวิชาและระบุเวลาให้ถูกต้อง! / Please select subject and time!");
+    
+    timeLeft = Math.floor(timeInput * 60); // แปลงนาทีเป็นวินาที
+    
     addLog("เริ่มเรียน");
     document.getElementById('main-btn-start').style.display = "none";
     document.getElementById('skip-btn').style.display = "block";
+    
+    // อัปเดตหน้าจอทันที 1 ครั้งก่อน setInterval ทำงาน
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('time-display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+
     timer = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
@@ -208,6 +212,7 @@ function finishStudy(status) {
     if (selectedSubject === "ไทย") targetUrl = THAI_FORM_URL;
     else if (selectedSubject === "วิทย์") targetUrl = SCIENCE_FORM_URL;
     else if (selectedSubject === "สังคม") targetUrl = SOCIAL_FORM_URL;
+    else if (selectedSubject === "คณิต") targetUrl = MATH_FORM_URL; 
     else targetUrl = SCIENCE_FORM_URL;
     
     window.open(targetUrl, '_blank');
@@ -220,9 +225,10 @@ function resetToSetupPage() {
     selectedSubject = "";
     timeLeft = 0;
     document.getElementById('time-display').innerText = "00:00";
+    document.getElementById('custom-time').value = ""; // ล้างค่าในช่องกรอกเวลา
     document.getElementById('main-btn-start').style.display = "block";
     document.getElementById('skip-btn').style.display = "none";
-    document.querySelectorAll('.sub-btn, .time-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('selected'));
 }
 
 function addSchedule() {
